@@ -1,0 +1,9 @@
+version: "3"
+services:
+    web:
+        image: waquarkops.jfrog.io/wa-docker-local/wa-app:v0.1.1-49-ded9048b7be6a14a6d7956a60319ac21b3f6e297
+        ports:
+            - "5000:80"
+        cpu_shares: 300
+        mem_limit: 512m
+

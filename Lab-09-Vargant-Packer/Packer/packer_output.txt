@@ -1,0 +1,247 @@
+kycherr@kycherr-z400:~/Documents/DevOps-Labs/10-Vagrant-Packer/Packer$ packer build -var-file="variables.pkrvars.hcl" .
+wa-packer-build.amazon-ebs.ubuntu: output will be in this color.
+
+==> wa-packer-build.amazon-ebs.ubuntu: Prevalidating any provided VPC information
+==> wa-packer-build.amazon-ebs.ubuntu: Prevalidating AMI Name: wa-packer-aws-eds-2023-09-09133952
+    wa-packer-build.amazon-ebs.ubuntu: Found Image ID: ami-0c38efb4f5f15205f
+==> wa-packer-build.amazon-ebs.ubuntu: Creating temporary keypair: packer_64fc75a8-7192-c152-83cc-190b7025f72e
+==> wa-packer-build.amazon-ebs.ubuntu: Creating temporary security group for this instance: packer_64fc75ac-9cd0-4dc1-1509-09584b2533b4
+==> wa-packer-build.amazon-ebs.ubuntu: Authorizing access to port 22 from [0.0.0.0/0] in the temporary security groups...
+==> wa-packer-build.amazon-ebs.ubuntu: Launching a source AWS instance...
+    wa-packer-build.amazon-ebs.ubuntu: Instance ID: i-0499219b3a69f6e98
+==> wa-packer-build.amazon-ebs.ubuntu: Waiting for instance (i-0499219b3a69f6e98) to become ready...
+==> wa-packer-build.amazon-ebs.ubuntu: Using SSH communicator to connect: 52.54.108.5
+==> wa-packer-build.amazon-ebs.ubuntu: Waiting for SSH to become available...
+==> wa-packer-build.amazon-ebs.ubuntu: Connected to SSH!
+==> wa-packer-build.amazon-ebs.ubuntu: Provisioning with shell script: /tmp/packer-shell2094122972
+    wa-packer-build.amazon-ebs.ubuntu: Wellcome to wa-packer-aws-eds-2023-09-09133952
+    wa-packer-build.amazon-ebs.ubuntu: Start update and upgrade
+==> wa-packer-build.amazon-ebs.ubuntu:
+==> wa-packer-build.amazon-ebs.ubuntu: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+==> wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Hit:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+    wa-packer-build.amazon-ebs.ubuntu: Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [109 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:5 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:6 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [761 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:7 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [164 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:8 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [11.3 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:9 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [822 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:10 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [132 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:11 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [781 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:12 http://archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:13 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [143 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:14 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [16.7 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:15 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [36.5 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:16 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [7060 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:17 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [260 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:18 http://archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:19 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:20 http://archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:21 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [970 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [222 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [15.6 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:25 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [838 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:26 http://archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [135 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:27 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [979 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:28 http://archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [213 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:29 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [21.8 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:30 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [41.6 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:31 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [9768 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:32 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [476 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:33 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [41.7 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:34 http://archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [10.5 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:35 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [388 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:36 http://archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:37 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [24.3 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:38 http://archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16.4 kB]
+    wa-packer-build.amazon-ebs.ubuntu: Get:39 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [640 B]
+    wa-packer-build.amazon-ebs.ubuntu: Get:40 http://archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
+    wa-packer-build.amazon-ebs.ubuntu: Fetched 27.1 MB in 6s (4373 kB/s)
+    wa-packer-build.amazon-ebs.ubuntu: Reading package lists...
+    wa-packer-build.amazon-ebs.ubuntu: Building dependency tree...
+    wa-packer-build.amazon-ebs.ubuntu: Reading state information...
+    wa-packer-build.amazon-ebs.ubuntu: 3 packages can be upgraded. Run 'apt list --upgradable' to see them.
+==> wa-packer-build.amazon-ebs.ubuntu:
+==> wa-packer-build.amazon-ebs.ubuntu: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+==> wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: Reading package lists...
+    wa-packer-build.amazon-ebs.ubuntu: Building dependency tree...
+    wa-packer-build.amazon-ebs.ubuntu: Reading state information...
+    wa-packer-build.amazon-ebs.ubuntu: Calculating upgrade...
+    wa-packer-build.amazon-ebs.ubuntu: The following packages will be upgraded:
+    wa-packer-build.amazon-ebs.ubuntu:   mokutil
+    wa-packer-build.amazon-ebs.ubuntu: 1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+    wa-packer-build.amazon-ebs.ubuntu: 1 standard LTS security update
+    wa-packer-build.amazon-ebs.ubuntu: Need to get 27.3 kB of archives.
+    wa-packer-build.amazon-ebs.ubuntu: After this operation, 0 B of additional disk space will be used.
+    wa-packer-build.amazon-ebs.ubuntu: Get:1 http://security.ubuntu.com/ubuntu jammy-security/main amd64 mokutil amd64 0.6.0-2~22.04.2 [27.3 kB]
+==> wa-packer-build.amazon-ebs.ubuntu: debconf: unable to initialize frontend: Dialog
+==> wa-packer-build.amazon-ebs.ubuntu: debconf: (Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.)
+==> wa-packer-build.amazon-ebs.ubuntu: debconf: falling back to frontend: Readline
+==> wa-packer-build.amazon-ebs.ubuntu: debconf: unable to initialize frontend: Readline
+==> wa-packer-build.amazon-ebs.ubuntu: debconf: (This frontend requires a controlling tty.)
+==> wa-packer-build.amazon-ebs.ubuntu: debconf: falling back to frontend: Teletype
+==> wa-packer-build.amazon-ebs.ubuntu: dpkg-preconfigure: unable to re-open stdin:
+    wa-packer-build.amazon-ebs.ubuntu: Fetched 27.3 kB in 0s (459 kB/s)
+    wa-packer-build.amazon-ebs.ubuntu: (Reading database ... 64726 files and directories currently installed.)
+    wa-packer-build.amazon-ebs.ubuntu: Preparing to unpack .../mokutil_0.6.0-2~22.04.2_amd64.deb ...
+    wa-packer-build.amazon-ebs.ubuntu: Unpacking mokutil (0.6.0-2~22.04.2) over (0.6.0-2~22.04.1) ...
+    wa-packer-build.amazon-ebs.ubuntu: Setting up mokutil (0.6.0-2~22.04.2) ...
+    wa-packer-build.amazon-ebs.ubuntu: Processing triggers for man-db (2.10.2-1) ...
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: Running kernel seems to be up-to-date.
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: No services need to be restarted.
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: No containers need to be restarted.
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: No user sessions are running outdated binaries.
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: No VM guests are running outdated hypervisor (qemu) binaries on this host.
+==> wa-packer-build.amazon-ebs.ubuntu: Pausing at breakpoint provisioner with note "Br before run script: 2023-09-09133952".
+==> wa-packer-build.amazon-ebs.ubuntu: Press enter to continue. 
+==> wa-packer-build.amazon-ebs.ubuntu: Pausing 2s before the next provisioner...
+==> wa-packer-build.amazon-ebs.ubuntu: Provisioning with shell script: ./scripts/docker.sh
+==> wa-packer-build.amazon-ebs.ubuntu:
+==> wa-packer-build.amazon-ebs.ubuntu: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+==> wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: Reading package lists...
+    wa-packer-build.amazon-ebs.ubuntu: Building dependency tree...
+    wa-packer-build.amazon-ebs.ubuntu: Reading state information...
+==> wa-packer-build.amazon-ebs.ubuntu: E: Unable to locate package sshpass
+    wa-packer-build.amazon-ebs.ubuntu: apt 2.4.10 (amd64)
+    wa-packer-build.amazon-ebs.ubuntu: --- Installing Docker ---
+    wa-packer-build.amazon-ebs.ubuntu: # Executing docker install script, commit: c2de0811708b6d9015ed1a2c80f02c9b70c8ce7b
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c apt-get update -qq >/dev/null
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c install -m 0755 -d /etc/apt/keyrings
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c chmod a+r /etc/apt/keyrings/docker.gpg
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c apt-get update -qq >/dev/null
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buildx-plugin >/dev/null
+==> wa-packer-build.amazon-ebs.ubuntu: + sh -c docker version
+    wa-packer-build.amazon-ebs.ubuntu: Client: Docker Engine - Community
+    wa-packer-build.amazon-ebs.ubuntu:  Version:           24.0.6
+    wa-packer-build.amazon-ebs.ubuntu:  API version:       1.43
+    wa-packer-build.amazon-ebs.ubuntu:  Go version:        go1.20.7
+    wa-packer-build.amazon-ebs.ubuntu:  Git commit:        ed223bc
+    wa-packer-build.amazon-ebs.ubuntu:  Built:             Mon Sep  4 12:31:44 2023
+    wa-packer-build.amazon-ebs.ubuntu:  OS/Arch:           linux/amd64
+    wa-packer-build.amazon-ebs.ubuntu:  Context:           default
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: Server: Docker Engine - Community
+    wa-packer-build.amazon-ebs.ubuntu:  Engine:
+    wa-packer-build.amazon-ebs.ubuntu:   Version:          24.0.6
+    wa-packer-build.amazon-ebs.ubuntu:   API version:      1.43 (minimum version 1.12)
+    wa-packer-build.amazon-ebs.ubuntu:   Go version:       go1.20.7
+    wa-packer-build.amazon-ebs.ubuntu:   Git commit:       1a79695
+    wa-packer-build.amazon-ebs.ubuntu:   Built:            Mon Sep  4 12:31:44 2023
+    wa-packer-build.amazon-ebs.ubuntu:   OS/Arch:          linux/amd64
+    wa-packer-build.amazon-ebs.ubuntu:   Experimental:     false
+    wa-packer-build.amazon-ebs.ubuntu:  containerd:
+    wa-packer-build.amazon-ebs.ubuntu:   Version:          1.6.22
+    wa-packer-build.amazon-ebs.ubuntu:   GitCommit:        8165feabfdfe38c65b599c4993d227328c231fca
+    wa-packer-build.amazon-ebs.ubuntu:  runc:
+    wa-packer-build.amazon-ebs.ubuntu:   Version:          1.1.8
+    wa-packer-build.amazon-ebs.ubuntu:   GitCommit:        v1.1.8-0-g82f18fe
+    wa-packer-build.amazon-ebs.ubuntu:  docker-init:
+==> wa-packer-build.amazon-ebs.ubuntu: usermod: user 'vagrant' does not exist
+    wa-packer-build.amazon-ebs.ubuntu:   Version:          0.19.0
+    wa-packer-build.amazon-ebs.ubuntu:   GitCommit:        de40ad0
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: ================================================================================
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: To run Docker as a non-privileged user, consider setting up the
+    wa-packer-build.amazon-ebs.ubuntu: Docker daemon in rootless mode for your user:
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu:     dockerd-rootless-setuptool.sh install
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: Visit https://docs.docker.com/go/rootless/ to learn about rootless mode.
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: To run the Docker daemon as a fully privileged service, but granting non-root
+    wa-packer-build.amazon-ebs.ubuntu: users access, refer to https://docs.docker.com/go/daemon-access/
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: WARNING: Access to the remote API on a privileged Docker daemon is equivalent
+    wa-packer-build.amazon-ebs.ubuntu:          to root access on the host. Refer to the 'Docker daemon attack surface'
+    wa-packer-build.amazon-ebs.ubuntu:          documentation for details: https://docs.docker.com/go/attack-surface/
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: ================================================================================
+    wa-packer-build.amazon-ebs.ubuntu:
+    wa-packer-build.amazon-ebs.ubuntu: --- Install Docker Compose ---
+==> wa-packer-build.amazon-ebs.ubuntu:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+==> wa-packer-build.amazon-ebs.ubuntu:                                  Dload  Upload   Total   Spent    Left  Speed
+==> wa-packer-build.amazon-ebs.ubuntu:   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+==> wa-packer-build.amazon-ebs.ubuntu:   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+==> wa-packer-build.amazon-ebs.ubuntu: 100 56.7M  100 56.7M    0     0  25.2M      0  0:00:02  0:00:02 --:--:-- 43.3M
+    wa-packer-build.amazon-ebs.ubuntu: --- Run Nginx container and forward ports ---
+==> wa-packer-build.amazon-ebs.ubuntu: Unable to find image 'nginx:latest' locally
+==> wa-packer-build.amazon-ebs.ubuntu: latest: Pulling from library/nginx
+==> wa-packer-build.amazon-ebs.ubuntu: 360eba32fa65: Pulling fs layer
+==> wa-packer-build.amazon-ebs.ubuntu: c5903f3678a7: Pulling fs layer
+==> wa-packer-build.amazon-ebs.ubuntu: 27e923fb52d3: Pulling fs layer
+==> wa-packer-build.amazon-ebs.ubuntu: 72de7d1ce3a4: Pulling fs layer
+==> wa-packer-build.amazon-ebs.ubuntu: 94f34d60e454: Pulling fs layer
+==> wa-packer-build.amazon-ebs.ubuntu: e42dcfe1730b: Pulling fs layer
+==> wa-packer-build.amazon-ebs.ubuntu: 907d1bb4e931: Pulling fs layer
+==> wa-packer-build.amazon-ebs.ubuntu: 94f34d60e454: Waiting
+==> wa-packer-build.amazon-ebs.ubuntu: 72de7d1ce3a4: Waiting
+==> wa-packer-build.amazon-ebs.ubuntu: e42dcfe1730b: Waiting
+==> wa-packer-build.amazon-ebs.ubuntu: 907d1bb4e931: Waiting
+==> wa-packer-build.amazon-ebs.ubuntu: 27e923fb52d3: Verifying Checksum
+==> wa-packer-build.amazon-ebs.ubuntu: 27e923fb52d3: Download complete
+==> wa-packer-build.amazon-ebs.ubuntu: 72de7d1ce3a4: Verifying Checksum
+==> wa-packer-build.amazon-ebs.ubuntu: 72de7d1ce3a4: Download complete
+==> wa-packer-build.amazon-ebs.ubuntu: 94f34d60e454: Verifying Checksum
+==> wa-packer-build.amazon-ebs.ubuntu: 94f34d60e454: Download complete
+==> wa-packer-build.amazon-ebs.ubuntu: e42dcfe1730b: Verifying Checksum
+==> wa-packer-build.amazon-ebs.ubuntu: e42dcfe1730b: Download complete
+==> wa-packer-build.amazon-ebs.ubuntu: 907d1bb4e931: Verifying Checksum
+==> wa-packer-build.amazon-ebs.ubuntu: 907d1bb4e931: Download complete
+==> wa-packer-build.amazon-ebs.ubuntu: 360eba32fa65: Verifying Checksum
+==> wa-packer-build.amazon-ebs.ubuntu: 360eba32fa65: Download complete
+==> wa-packer-build.amazon-ebs.ubuntu: c5903f3678a7: Verifying Checksum
+==> wa-packer-build.amazon-ebs.ubuntu: c5903f3678a7: Download complete
+==> wa-packer-build.amazon-ebs.ubuntu: 360eba32fa65: Pull complete
+==> wa-packer-build.amazon-ebs.ubuntu: c5903f3678a7: Pull complete
+==> wa-packer-build.amazon-ebs.ubuntu: 27e923fb52d3: Pull complete
+==> wa-packer-build.amazon-ebs.ubuntu: 72de7d1ce3a4: Pull complete
+==> wa-packer-build.amazon-ebs.ubuntu: 94f34d60e454: Pull complete
+==> wa-packer-build.amazon-ebs.ubuntu: e42dcfe1730b: Pull complete
+==> wa-packer-build.amazon-ebs.ubuntu: 907d1bb4e931: Pull complete
+==> wa-packer-build.amazon-ebs.ubuntu: Digest: sha256:6926dd802f40e5e7257fded83e0d8030039642e4e10c4a98a6478e9c6fe06153
+==> wa-packer-build.amazon-ebs.ubuntu: Status: Downloaded newer image for nginx:latest
+    wa-packer-build.amazon-ebs.ubuntu: 8e7e3f89a39b216d06981450c8fafb35967dba937c5d8d1e4885736e2163cffa
+==> wa-packer-build.amazon-ebs.ubuntu: Stopping the source instance...
+    wa-packer-build.amazon-ebs.ubuntu: Stopping instance
+==> wa-packer-build.amazon-ebs.ubuntu: Waiting for the instance to stop...
+==> wa-packer-build.amazon-ebs.ubuntu: Creating AMI wa-packer-aws-eds-2023-09-09133952 from instance i-0499219b3a69f6e98
+    wa-packer-build.amazon-ebs.ubuntu: AMI: ami-0dfc16ab6851fd9fe
+==> wa-packer-build.amazon-ebs.ubuntu: Waiting for AMI to become ready...
+==> wa-packer-build.amazon-ebs.ubuntu: Skipping Enable AMI deprecation...
+==> wa-packer-build.amazon-ebs.ubuntu: Adding tags to AMI (ami-0dfc16ab6851fd9fe)...
+==> wa-packer-build.amazon-ebs.ubuntu: Tagging snapshot: snap-0b3b248bd2e4353a5
+==> wa-packer-build.amazon-ebs.ubuntu: Creating AMI tags
+    wa-packer-build.amazon-ebs.ubuntu: Adding tag: "Type": "Wa-TEST"
+    wa-packer-build.amazon-ebs.ubuntu: Adding tag: "OS": "Ubuntu"
+    wa-packer-build.amazon-ebs.ubuntu: Adding tag: "Release": "latest"
+==> wa-packer-build.amazon-ebs.ubuntu: Creating snapshot tags
+==> wa-packer-build.amazon-ebs.ubuntu: Terminating the source AWS instance...
+==> wa-packer-build.amazon-ebs.ubuntu: Cleaning up any extra volumes...
+==> wa-packer-build.amazon-ebs.ubuntu: No volumes to clean up, skipping
+==> wa-packer-build.amazon-ebs.ubuntu: Deleting temporary security group...
+==> wa-packer-build.amazon-ebs.ubuntu: Deleting temporary keypair...
+Build 'wa-packer-build.amazon-ebs.ubuntu' finished after 8 minutes 6 seconds.
+
+==> Wait completed after 8 minutes 6 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> wa-packer-build.amazon-ebs.ubuntu: AMIs were created:
+us-east-1: ami-0dfc16ab6851fd9fe
+
+kycherr@kycherr-z400:~/Documents/DevOps-Labs/10-Vagrant-Packer/Packer$ 
+

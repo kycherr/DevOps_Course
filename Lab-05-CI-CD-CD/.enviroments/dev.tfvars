@@ -1,0 +1,9 @@
+gitlab_url = "https://gitlab.kwds.net.ua/api/v4/"
+gitlab_token = "glpat-wkqB5zswqMKxW_X-tnBE"
+group_topic = "WA"
+course_name = "2206"
+pr_descr = "Gen_by_Terraform"
+gitlab_user_email = "kycherr@gmail.com"
+gtl_dp_username = "kycherr"
+gtl_dp_gr_scopes = ["read_repository"]
+gtl_dp_pr_scopes = ["read_repository"]

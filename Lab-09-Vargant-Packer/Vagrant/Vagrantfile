@@ -1,0 +1,53 @@
+ubuntu_version = "ubuntu/bionic64"
+cluster_cidr = "192.168.56"
+master_node_count = 1
+master_node_prefix = "master"
+slave_node_count = 2
+slave_node_prefix = "slave"
+
+Vagrant.configure("2") do |config|
+
+  # Create the master node
+  (1..master_node_count).each do |i|
+    config.vm.define "#{master_node_prefix}-#{i}" do |node|
+      node.vm.box = ubuntu_version
+      node.vm.box_check_update = true
+      node.vm.hostname = "#{master_node_prefix}-#{i}"
+      node.vm.synced_folder "./keys", "/home/vagrant/keys"
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{master_node_prefix}-#{i}"
+        vb.cpus = 2
+        vb.memory = "2048"
+      end
+      node.vm.network "private_network", ip: "#{cluster_cidr}.10#{i}", nic_type: "82543GC"
+      node.vm.provision "shell", path: "./scripts/docker.sh"
+      node.vm.provision "shell", inline: <<-SHELL
+      [ -f /home/vagrant/.ssh/id_rsa ] || ssh-keygen -t rsa -b 2048 -N "" -f /home/vagrant/.ssh/id_rsa
+      cat /vagrant/keys/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+      chmod 600 /home/vagrant/.ssh/authorized_keys
+    SHELL
+    end
+  end
+
+  # Create the slave nodes
+  (1..slave_node_count).each do |i|
+    config.vm.define "#{slave_node_prefix}-#{i}" do |node|
+      node.vm.box = ubuntu_version
+      node.vm.box_check_update = true
+      node.vm.hostname = "#{slave_node_prefix}-#{i}"
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{slave_node_prefix}-#{i}"
+        vb.cpus = 2
+        vb.memory = "2048"
+      end
+      node.vm.network "private_network", ip: "#{cluster_cidr}.20#{i}", nic_type: "82543GC"
+      node.vm.provision "shell", path: "./scripts/slave.sh"
+      node.vm.provision "shell", inline: <<-SHELL
+      [ -f /home/vagrant/.ssh/id_rsa ] || ssh-keygen -t rsa -b 2048 -N "" -f /home/vagrant/.ssh/id_rsa
+      cat /vagrant/keys/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+      chmod 600 /home/vagrant/.ssh/authorized_keys
+    SHELL
+    end
+  end
+
+end

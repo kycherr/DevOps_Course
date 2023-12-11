@@ -1,0 +1,29 @@
+ubuntu_version = "ubuntu/focal64"
+cluster_cidr = "192.168.56"
+node_prefix = "wa-srv"
+
+Vagrant.configure("2") do |config|
+config.vm.provision "file", source: "ansible/keys/wa.key.pub", destination: "/home/vagrant/.ssh/"
+
+config.vm.define "ubnt-#{node_prefix}" do |node|
+node.vm.box = "#{ubuntu_version}"
+node.vm.box_check_update = true
+node.vm.hostname = "ubnt-#{node_prefix}"
+node.vm.provider "virtualbox" do |vb|
+  vb.name = "ubnt-#{node_prefix}-#{cluster_cidr}.253"
+  vb.cpus = 2
+  vb.memory = "2048"
+end
+node.vm.network "private_network", ip: "#{cluster_cidr}.253", nic_type: "82543GC"
+node.vm.synced_folder "./ansible", "/home/vagrant/ansible"
+node.vm.provision "shell", inline: <<-SHELL
+  sudo apt-get update
+  sudo apt-get install sshpass -y
+  sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/#g' /etc/ssh/sshd_config
+  sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+  cat /home/vagrant/.ssh/wa.key.pub >> /home/vagrant/.ssh/authorized_keys
+  sudo systemctl restart sshd
+  sudo apt-get install python-apt -y
+SHELL
+end
+end

@@ -1,0 +1,92 @@
+stages:
+  - "lint"
+  - "sonar"
+  - "test"
+  - "build"
+
+variables:
+  MESSAGE_DEMO:
+    value: "Build ok!"
+
+
+linting:
+  stage: "lint"
+  tags:
+    - "local"
+  image: "mcr.microsoft.com/dotnet/sdk:6.0"
+  script:
+    - dotnet format --diagnostics ./dotnet/wa-app
+
+  only:
+    - merge_request
+
+unit_tests:
+  stage: "test"
+  needs:
+    - linting
+  tags:
+    - "local"
+  image: "mcr.microsoft.com/dotnet/sdk:6.0"
+  script:
+    - dotnet test ./dotnet/wa-app.Tests --logger:"junit;LogFilePath=../artifacts/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
+  artifacts:
+    expire_in: "5 days"
+    when: always
+    paths:
+      - "./**/*test-result.xml"
+    reports:
+      junit:
+        - "./**/*test-result.xml"
+  only:
+    - merge_request
+    - web
+
+sonarqube-check:
+  stage: "sonar"
+  needs:
+    - linting
+  tags:
+    - "local"
+  image: mcr.microsoft.com/dotnet/core/sdk:latest
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+      - "apt-get update"
+      - "apt-get install --yes openjdk-11-jre"
+      - "dotnet tool install --global dotnet-sonarscanner"
+      - "export PATH=\"$PATH:$HOME/.dotnet/tools\""
+      - "dotnet sonarscanner begin /k:\"kycherr_wa-05-dotnet_AYofQCvM7iF1TAyCqP0k\" /d:sonar.token=\"$SONAR_TOKEN\" /d:\"sonar.host.url=$SONAR_HOST_URL\" "
+      - "dotnet build"
+      - "dotnet sonarscanner end /d:sonar.token=\"$SONAR_TOKEN\""
+  allow_failure: true
+  only:
+    - merge_request
+    
+build_solution:
+  stage: "build"
+  needs:
+    - sonarqube-check
+  tags:
+    - "local"
+  image: "mcr.microsoft.com/dotnet/sdk:6.0"
+
+  script:
+    - dotnet publish ./dotnet/wa-app -c ${DOTNET_BUILD_ARGS}
+    - echo ${MESSAGE_DEMO}
+  variables:
+    DOTNET_BUILD_ARGS: "${BUILD_TYPE}"
+  
+  artifacts:
+    untracked: false
+    when: on_success
+    expire_in: "5 days"
+    paths:
+        - "./dotnet/wa-app/bin/Release/net6.0/publish/*"
+  only:
+    - merge_request
+

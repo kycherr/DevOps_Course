@@ -1,0 +1,112 @@
+ubuntu_version = "ubuntu/bionic64"
+centos_version = "geerlingguy/centos7"
+cluster_cidr = "192.168.56"
+mgmt_node_count = 1
+mgmt_node_prefix = "mgmt"
+front_node_count = 1
+front_node_prefix = "front"
+db_node_count = 3
+db_node_prefix = "db"
+
+
+
+Vagrant.configure("2") do |config|
+  # Create MGMT 
+  (1..mgmt_node_count).each do |i|
+    config.vm.define "#{mgmt_node_prefix}-#{i}" do |node|
+      node.vm.box = ubuntu_version
+      node.vm.box_check_update = true
+      node.vm.hostname = "#{mgmt_node_prefix}-#{i}"
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{mgmt_node_prefix}-#{cluster_cidr}.25#{i}"
+        vb.cpus = 2
+        vb.memory = "2048"
+      end
+      node.vm.network "private_network", ip: "#{cluster_cidr}.25#{i}", nic_type: "82543GC"
+      node.vm.synced_folder "ansible", "/ansible"
+      node.vm.provision "shell", inline: <<-SHELL
+        sudo apt install sshpass -y
+        sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/#g' /etc/ssh/sshd_config
+        service ssh restart
+        sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+        systemctl restart sshd.service
+      SHELL
+      node.vm.provision "shell", inline: <<-SHELL
+        sudo apt-get update
+        sudo apt-get install software-properties-common -y
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt-get install ansible -y
+      SHELL
+    end
+  end
+
+
+  (1..front_node_count).each do |i|
+    config.vm.define "#{front_node_prefix}-#{i}" do |node|
+      node.vm.box = ubuntu_version
+      node.vm.box_check_update = true
+      node.vm.hostname = "#{front_node_prefix}-#{i}"
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{front_node_prefix}-#{cluster_cidr}.3#{i}"
+        vb.cpus = 2
+        vb.memory = "2048"
+      end
+      node.vm.network "private_network", ip: "#{cluster_cidr}.3#{i}", nic_type: "82543GC"
+      node.vm.provision "shell", inline: <<-SHELL
+        sudo apt install sshpass -y
+        sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/#g' /etc/ssh/sshd_config
+        service ssh restart
+        sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+        systemctl restart sshd.service
+      SHELL
+    end
+  end
+
+  (1..db_node_count).each do |i|
+    config.vm.define "#{db_node_prefix}-#{i}" do |node|
+      node.vm.box = ubuntu_version
+      node.vm.box_check_update = true
+      node.vm.hostname = "#{db_node_prefix}-#{i}"
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{db_node_prefix}-#{cluster_cidr}.4#{i}"
+        vb.cpus = 2
+        vb.memory = "2048"
+      end
+      node.vm.network "private_network", ip: "#{cluster_cidr}.4#{i}", nic_type: "82543GC"
+      node.vm.provision "shell", inline: <<-SHELL
+        sudo apt install sshpass -y
+        sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/#g' /etc/ssh/sshd_config
+        service ssh restart
+        sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+        systemctl restart sshd.service
+        SHELL
+    end
+  end
+  config.vm.provision "shell", inline: <<-SHELL
+  # Create the /ansible directory if it doesn't exist
+  mkdir -p /ansible
+
+  # Generate the inventory.ini file
+  cat > /ansible/inventory.ini <<EOL
+[front]
+EOL
+
+  for i in $(seq 1 #{front_node_count}); do
+    cat >> /ansible/inventory.ini <<EOL
+#{front_node_prefix}-$i ansible_host=#{cluster_cidr}.3$i
+EOL
+  done
+
+  cat >> /ansible/inventory.ini <<EOL
+
+[db]
+EOL
+
+  for i in $(seq 1 #{db_node_count}); do
+    cat >> /ansible/inventory.ini <<EOL
+#{db_node_prefix}-$i ansible_host=#{cluster_cidr}.4$i
+EOL
+  done
+SHELL
+
+end

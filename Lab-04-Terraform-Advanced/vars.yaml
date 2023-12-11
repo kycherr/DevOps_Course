@@ -1,0 +1,10 @@
+common:
+  backend:
+    minio_endpoint: http://195.162.71.247:9000
+    minio_acces_k: yEgNDTnGcMGaTG3SxTe9
+    minio_secret_k: WkpcyaFaIbT5DmmWuSKSyZpJZ5yhyEef2HwRGnQT
+    minio_bucket: tf-state
+    minio_region: kwds-01
+  providers:
+    gitlab:
+      version: 16.1.0

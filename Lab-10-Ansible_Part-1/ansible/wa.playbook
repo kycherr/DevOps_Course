@@ -1,0 +1,67 @@
+---
+- name: Install Nginx, PHP-FPM, and MariaDB
+  hosts: all  
+  become: yes 
+
+  vars:
+    db_host: "localhost"
+    db_username: "root"
+    db_password: "p@ssw0rd"
+
+  tasks:
+    - name: Update APT
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Nginx and PHP-FPM
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nginx
+        - php-fpm
+      when: ansible_os_family == 'Debian'
+
+    - name: Enable and start Nginx service
+      systemd:
+        name: nginx
+        enabled: yes
+        state: started
+      when: ansible_os_family == 'Debian'
+
+    - name: Install MariaDB client
+      apt:
+        name: mariadb-client
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Create MariaDB conf
+      template:
+        src: my.cnf.j2  
+        dest: /etc/mysql/my.cnf
+      when: ansible_os_family == 'Debian'
+
+    - name: Install MariaDB srv
+      apt:
+        name: mariadb-server
+        state: present
+      when: ansible_os_family == 'Debian'
+      tags: db
+
+    - name: Start and enable MariaDB srv
+      systemd:
+        name: mariadb
+        enabled: yes
+        state: started
+      when: ansible_os_family == 'Debian'
+      tags: db
+
+    - name: Test MariaDB connectivity
+      command: mysql -u {{ db_username }} -p{{ db_password }} -h {{ db_host }} -e "SELECT 1;"
+      ignore_errors: yes  
+      register: mysql_result
+
+    - name: Print MariaDB connectivity result
+      debug:
+        var: mysql_result.stdout_lines

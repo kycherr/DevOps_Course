@@ -1,0 +1,51 @@
+stages:
+  - test
+
+test-tfsec:
+  stage: test
+  image: aquasec/tfsec-ci
+  script:
+    - tfsec modules/gitlab_cr/ -f junit --out tfsec-report.xml
+  artifacts:
+    name: "1-tfsec"
+    when: always
+    expire_in: 1 week
+    reports:
+      junit: "tfsec-report.xml"
+    paths:
+      - "tfsec-report.xml"
+
+test-tflint:
+  stage: test
+  image:
+    name: ghcr.io/terraform-linters/tflint
+    entrypoint: [""]
+  script:
+    - tflint --init -c .tflint.hcl
+    - tflint --chdir=modules/gitlab_cr/ --disable-rule terraform_required_version -f junit > tflint-report.xml
+  artifacts:
+    name: "${CI_JOB_NAME}-tflint"
+    when: always
+    expire_in: 1 week
+    reports:
+      junit: tflint-report.xml
+    paths:
+      - tflint-report.xml
+
+test-checkov:
+  stage: test
+  image:
+    name: bridgecrew/checkov:latest
+    entrypoint:
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  script:
+    - checkov -d modules/gitlab_cr/ -o junitxml | tee checkov-report.xml
+  artifacts:
+    name: "${CI_JOB_NAME}-checkov"
+    when: always
+    expire_in: 1 week
+    reports:
+      junit: "checkov-report.xml"
+    paths:
+      - "checkov-report.xml"
